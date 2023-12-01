@@ -9,3 +9,5 @@ DS_Store
 
 code_unet_plus.ipynb
 code_unet.ipynb
+
+__pycache__/
