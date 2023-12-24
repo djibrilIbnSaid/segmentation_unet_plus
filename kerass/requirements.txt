@@ -1,0 +1,9 @@
+tensorflow
+keras
+pydot
+
+# Application wise
+simpleitk
+photutils
+tifffile
+libtiff

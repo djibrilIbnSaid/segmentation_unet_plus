@@ -57,7 +57,7 @@ def decoder_block(inputs, skip_inputs, filters, kernel_size=3, activation='relu'
     return conv
 
 
-def build_unet(input_shape=(256, 256, 3), num_classes=1):
+def build_unet(input_shape=(256, 256, 3), num_classes=3):
     """
     Cette fonction prend en entrée une taille d'image et un nombre de classes et retourne un modèle U-Net++.
     
@@ -85,14 +85,15 @@ def build_unet(input_shape=(256, 256, 3), num_classes=1):
     skip2_2 = decoder_block(skip3_1, [conv2, skip2_1], 128)
     skip1_3 = decoder_block(skip2_2, [conv1, skip1_1, skip1_2], 64)
     
-    # # Decoder
+    # Decoder
     upconv4 = decoder_block(conv_centre, [conv4], 512)
     upconv3 = decoder_block(upconv4, [conv3, skip3_1], 256)
     upconv2 = decoder_block(upconv3, [conv2, skip2_1, skip2_2], 128)
     upconv1 = decoder_block(upconv2, [conv1, skip1_1, skip1_2, skip1_3], 64)
     
-    outputs = Conv2D(num_classes, 1, activation='sigmoid')(upconv1)
+    outputs = Conv2D(num_classes, (1,1), activation='sigmoid')(upconv1)
     
+    print(f"input_shape: {input_shape} | output_shape: {outputs.shape}")
     model = tf.keras.Model(inputs=inputs, outputs=outputs)
     return model
 

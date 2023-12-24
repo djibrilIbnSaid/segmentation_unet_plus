@@ -1,6 +1,7 @@
 import os
 import cv2
 import numpy as np
+from matplotlib import pyplot as plt
 
 
 DATA_DIR = 'data/plantDoc_leaf_disease' # Chemin vers le dossier des données
@@ -29,8 +30,8 @@ def get_image_folder(train=True, augmented=False):
             return (os.path.join(DATA_DIR, 'data', 'test', 'images'), os.path.join(DATA_DIR, 'data', 'test', 'masks'))
 
 
-def load_data(images_folder, masks_folder):
-    """ Cette fonction prend en entrée deux chemins vers des dossiers et retourne deux listes contenant les images et les masques.
+def load_data(images_folder, masks_folder, target_size=(256, 256)):
+    """ Cette fonction prend en entrée deux chemins vers des dossiers, la taille des images et retourne deux listes contenant les images et les masques.
 
     Args:
         images_folder (str): Le chemin vers le dossier des images.
@@ -46,10 +47,13 @@ def load_data(images_folder, masks_folder):
         if image_name.endswith('.jpg'):
             image_path = os.path.join(images_folder, image_name)
             image = cv2.imread(image_path)
+            image = cv2.resize(image, target_size)
             images.append(image)
             
             mask_filename = image_name.split('.')[0] + '.png'
             mask_path = os.path.join(masks_folder, mask_filename)
             mask = cv2.imread(mask_path)
-            masks.append(mask)
+            mask = cv2.resize(mask, target_size)
+            masks.append(mask)     
+    print(f"{len(images)} images chargées")
     return np.array(images), np.array(masks)    
