@@ -2,6 +2,7 @@ import os
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
+from tensorflow.keras.preprocessing.image import load_img, img_to_array
 
 
 DATA_DIR = 'data/plantDoc_leaf_disease' # Chemin vers le dossier des données
@@ -52,8 +53,9 @@ def load_data(images_folder, masks_folder, target_size=(256, 256)):
             
             mask_filename = image_name.split('.')[0] + '.png'
             mask_path = os.path.join(masks_folder, mask_filename)
-            mask = cv2.imread(mask_path)
+            mask = cv2.imread(mask_path, cv2.IMREAD_GRAYSCALE)
             mask = cv2.resize(mask, target_size)
-            masks.append(mask)     
+            masks.append(mask)
+            # print(f"{image_path} | {mask_path}")     
     print(f"{len(images)} images chargées")
-    return np.array(images), np.array(masks)    
+    return np.array(images), np.array(masks)
