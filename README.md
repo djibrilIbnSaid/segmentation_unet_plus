@@ -23,3 +23,7 @@ pip install -r requirements.txt
 - `kerass` : Dossier contenant le projet de base.
 
 - `docs` : Dossier contenant les documents de présentation du projet.
+
+##### NB: Dans la documentation github c'est mentionné d'utiliser le fichier `DSB2018_application.py` pour l'entrainement du modèle, mais ce fichier n'est pas présent dans le dossier `kerass` du projet de base. C'est pour cela que nous avons utilisé le fichier `train_on_colab.py` et utiliser leur option pour un entraiment avec mes propre données pour l'entrainement du modèle. En ce qui concerne la base `BRATS 2013` je n'ai pas reçu la base a temps parce qu'une personne confirme ma demande.
+
+##### J'ai modifié le dossier `keras` du projet en `kerass` pour eviter les conflits pour les imports.
